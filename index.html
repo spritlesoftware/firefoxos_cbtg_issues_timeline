@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>Firefox os cb2g issues timeline</title>
-  <meta http-equiv="Access-Control-Allow-Origin" content="*"> 
-  <meta name="description" content="mobile first, app, web app, responsive, admin dashboard, flat, flat ui">
+<!--   <meta http-equiv="Access-Control-Allow-Origin" content="*"> 
+ -->  <meta name="description" content="mobile first, app, web app, responsive, admin dashboard, flat, flat ui">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -148,7 +148,10 @@
     <section class="main">
       <div class="padder m-t m-b" >
         <div class="timeline">
-          <article class="timeline-item active">
+            <article class="timeline-item active" style='margin-bottom:10px;'><a href='#' id='load-more-issues' class='btn btn-small'>Load more</a></article>
+
+            <div class='timeline-items'>
+<!--           <article ">
               <div class="timeline-caption">
                 <div class="panel bg bg-primary">
                   <span class="timeline-icon"><i class="icon-bell-alt time-icon bg-primary"></i></span>
@@ -164,8 +167,9 @@
                   </div>
                 </div>
               </div>
-          </article>
-          <article class="timeline-item">
+          </article> -->
+          <!-- <div class="timeline-footer"><a href="#"><i class="icon-plus time-icon inline-block bg-default"></i></a></div> -->
+<!--           <article class="timeline-item">
               <div class="timeline-caption">
                 <div class="panel arrow arrow-left">
                   <span class="timeline-icon"><i class="icon-mobile-phone time-icon bg-primary"></i></span>
@@ -228,8 +232,8 @@
                   <p>Iaculis lorem justo porttitor orci. Donec elementum mollis velit.</p>
                 </div>
               </div>
-          </article>
-          <div class="timeline-footer"><a href="#"><i class="icon-plus time-icon inline-block bg-default"></i></a></div>
+          </article> -->
+          </div>
         </div>
       </div>
     </section>
@@ -275,19 +279,69 @@
         <a href="#" class="btn btn-mini btn-circle btn-gplus"><i class="icon-google-plus"></i></a>
       </p>
     </div>
+
   </footer>
   <!-- / footer -->
 	<script src="js/jquery.min.js"></script>
   <!-- Bootstrap -->
   <script src="js/bootstrap.js"></script>  
-    <script type="text/javascript">
-      $(document).ready(function(){
-		$('.timeline-icon').mouseover(function(){
-			$.getJSON("http://www.changebadtogood.com/issues",function(result){
-				alert(result);
-			});
-		});
-	  });
+  <!-- templating engine for rendering the issue items -->
+  <script src='js/jquery.tmpl.min.js'></script>
+
+  <script id="issue_template" type="text/x-jquery-tmpl">
+    <article class="timeline-item ${alt}">
+      <div class="timeline-caption">
+        <div class="panel arrow arrow-${arrow}">
+          <span class="timeline-icon"><i class="icon-bullhorn time-icon ${rating_class}"></i></span>
+          <span class="timeline-date">${updated_at}</span>
+          <h5>
+            <span>New Issue</span>
+            ${title}
+          </h5>            
+        </div>
+      </div>
+    </article>
   </script>
+  <script type="text/javascript">
+    var last_id=0;
+    function updateTimeline(){
+      $.getJSON("http://localhost:3000/issues.json",function(issues){
+        $.each(issues,function(index,issue){
+          if(parseInt(issue.id) > last_id)
+          {
+            if(index%2==0)
+              issue = $.extend(issue,{'alt':'alt','arrow':'right'})
+            else
+              issue = $.extend(issue,{'alt':'','arrow':'left'})
+
+            var indicator = issue.indicator.split('-')[0];
+            console.dir(indicator);
+            if(indicator=='ugly')
+              issue = $.extend(issue,{'rating_class':'bg-danger'});
+            else if(indicator=='bad')
+              issue = $.extend(issue,{'rating_class':'bg-warning'});
+            else if(indicator=='good')
+              issue = $.extend(issue,{'rating_class':'bg-success'});
+
+            $('#issue_template').tmpl(issue).prependTo('.timeline').slideDown('slow');
+          }
+        });
+        last_id = issues[issues.length-1].id;
+      });
+    }
+    $(document).ready(function(){
+      updateTimeline();
+
+      $('#load-more-issues').click(function(){
+        updateTimeline();
+        $(this).html('<i class="icon-spinner icon-spin"></i> Loading');
+      })
+      $( document ).ajaxComplete(function() {
+        $( "#load-more-issues" ).text( "Load more" );
+      });
+    });
+  </script>
+
+
 </body>
 </html>
