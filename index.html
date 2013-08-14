@@ -223,7 +223,7 @@
   <script type="text/javascript">
     var last_id=0;
     function updateTimeline(){
-      $.getJSON("http://localhost:3000/issues.json",function(issues){
+      $.getJSON("http://changebadtogood.com/issues.json",function(issues){
         $.each(issues,function(index,issue){
           if(parseInt(issue.id) > last_id)
           {
