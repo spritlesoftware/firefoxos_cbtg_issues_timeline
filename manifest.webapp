@@ -1,0 +1,11 @@
+{
+"name": "Vinothini",
+"description": "Hi this is my first first firefox os applicaion.",
+"launch_path": "/index.html",
+"icons": {"128": "image/firefox-logo.png"},
+"developer": {
+    "name": "Spritle Software",
+    "url": "http://www.spritle.com/"
+    },
+"default_locate": "en"
+}
