@@ -205,13 +205,15 @@
   <script src="js/bootstrap.js"></script>  
   <!-- templating engine for rendering the issue items -->
   <script src='js/jquery.tmpl.min.js'></script>
+  <!-- pretty printing date -->
+  <script src='js/prettydate.js'></script>
 
   <script id="issue_template" type="text/x-jquery-tmpl">
     <article class="timeline-item ${alt}">
       <div class="timeline-caption">
         <div class="panel arrow arrow-${arrow}">
-          <span class="timeline-icon"><i class="icon-bullhorn time-icon ${rating_class}"></i></span>
-          <span class="timeline-date">${updated_at}</span>
+          <span class="timeline-icon"><a href='http://changebadtogood.com/issues/${id}' target='_blank'><i class="icon-bullhorn time-icon ${rating_class}"></i></a></span>
+          <span class="timeline-date">${prettyDate(updated_at)}</span>
           <h5>
             <span>New Issue</span>
             ${title}
