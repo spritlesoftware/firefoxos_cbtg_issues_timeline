@@ -1,4 +1,4 @@
-firefoxos_cbtg_issues_timeline
+FireFoxOS App - ChangeBadtoGood - Data Timeline
 ==============================
 
-ChangeBadToGood.com Issues Timeline app using Firefox OS
+Happiliy build by Spritle Software team
