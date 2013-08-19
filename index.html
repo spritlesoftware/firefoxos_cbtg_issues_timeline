@@ -219,7 +219,7 @@
       <div class="timeline-caption">
         <div class="panel arrow arrow-${arrow}">
           <span class="timeline-icon"><a href='http://changebadtogood.com/issues/${id}' target='_blank'><i class="time-icon ${rating_class} ${indicator}"></i></a></span>
-          <span class="timeline-date">${prettyDate(updated_at)}</span>
+          <span class="timeline-date">${pretty_date}</span>
           <h5>
             <span>${categoty_at_title}</span>
             ${title}
@@ -250,9 +250,10 @@
               issue = $.extend(issue,{'indicator':'bg-success'});
 			  
 			var category = issue.category
-			
+			var date = getDateValue(issue.updated_at)
+			issue = $.extend(issue,{'pretty_date': date});
 			if(category == 1){
-			  issue = $.extend(issue,{'rating_class':'icon-tint'});
+			  issue = $.extend(issue,{'rating_class':'icon-tint'});			 
 			  issue = $.extend(issue,{'categoty_at_title':'Water'});
      	    }
 			else if(category == 2){
@@ -279,6 +280,16 @@
         last_id = issues[issues.length-1].id;
       });
     }
+	
+	function getDateValue(date){
+	  var d =new Date(date);
+	  var x,y,z ="";
+	  var month= ["January","February","March","April","May","June","July","August","September","October","November","December"]
+	  x = d.getDate();
+	  z = d.getFullYear();
+	  y=month[d.getMonth()];
+      return (x + "-"+ y + "-" + z)
+	}
     $(document).ready(function(){
       updateTimeline();
 
