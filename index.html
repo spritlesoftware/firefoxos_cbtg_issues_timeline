@@ -9,7 +9,13 @@
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/plugin.css">
-  <link rel="stylesheet" href="css/style.css">  
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .timeline:before{
+	  width: 1px;
+	  margin-left: 0px;
+	}
+  </style>
 </head>
 <body>
   <!-- header -->
@@ -148,7 +154,7 @@
     <section class="main">
       <div class="padder m-t m-b" >
         <div class="timeline">
-            <article class="timeline-item active" style='margin-bottom:10px;'><a href='#' id='load-more-issues' class='btn btn-small'>Load more</a></article>
+            <article class="timeline-item active" style='margin-bottom:10px;'><a href='#' id='load-more-issues' class='btn btn-small'>Number of issues</a></article>
 
             <div class='timeline-items'>
             </div>
@@ -212,10 +218,10 @@
     <article class="timeline-item ${alt}">
       <div class="timeline-caption">
         <div class="panel arrow arrow-${arrow}">
-          <span class="timeline-icon"><a href='http://changebadtogood.com/issues/${id}' target='_blank'><i class="icon-bullhorn time-icon ${rating_class}"></i></a></span>
+          <span class="timeline-icon"><a href='http://changebadtogood.com/issues/${id}' target='_blank'><i class="time-icon ${rating_class} ${indicator}"></i></a></span>
           <span class="timeline-date">${prettyDate(updated_at)}</span>
           <h5>
-            <span>New Issue</span>
+            <span>${categoty_at_title}</span>
             ${title}
           </h5>            
         </div>
@@ -224,6 +230,7 @@
   </script>
   <script type="text/javascript">
     var last_id=0;
+	var number_of_issue = ""
     function updateTimeline(){
       $.getJSON("http://changebadtogood.com/issues.json",function(issues){
         $.each(issues,function(index,issue){
@@ -232,20 +239,43 @@
             if(index%2==0)
               issue = $.extend(issue,{'alt':'alt','arrow':'right'})
             else
-              issue = $.extend(issue,{'alt':'','arrow':'left'})
-
+              issue = $.extend(issue,{'alt':'','arrow':'left'});
+			  
             var indicator = issue.indicator.split('-')[0];
-            console.dir(indicator);
             if(indicator=='ugly')
-              issue = $.extend(issue,{'rating_class':'bg-danger'});
-            else if(indicator=='bad')
-              issue = $.extend(issue,{'rating_class':'bg-warning'});
+              issue = $.extend(issue,{'indicator':'bg-danger'});
+			else if(indicator=='bad')
+              issue = $.extend(issue,{'indicator':'bg-warning'});
             else if(indicator=='good')
-              issue = $.extend(issue,{'rating_class':'bg-success'});
+              issue = $.extend(issue,{'indicator':'bg-success'});
+			  
+			var category = issue.category
+			
+			if(category == 1){
+			  issue = $.extend(issue,{'rating_class':'icon-tint'});
+			  issue = $.extend(issue,{'categoty_at_title':'Water'});
+     	    }
+			else if(category == 2){
+              issue = $.extend(issue,{'rating_class':'icon-road'});
+			  issue = $.extend(issue,{'categoty_at_title':'Road'});
+			}
+			else if(category == 3){
+              issue = $.extend(issue,{'rating_class':'icon-male'});
+			  issue = $.extend(issue,{'categoty_at_title':'Walk-Path'});
+			}
+			else if(category == 4){
+              issue = $.extend(issue,{'rating_class':'icon-lightbulb'});
+			  issue = $.extend(issue,{'categoty_at_title':'Electricity'});
+			}
+			else if(category == 5){
+              issue = $.extend(issue,{'rating_class':'icon-trash'});
+			  issue = $.extend(issue,{'categoty_at_title':'Garbage'});
+			}
 
             $('#issue_template').tmpl(issue).prependTo('.timeline').slideDown('slow');
           }
         });
+		number_of_issue = issues.length;
         last_id = issues[issues.length-1].id;
       });
     }
@@ -257,7 +287,7 @@
         $(this).html('<i class="icon-spinner icon-spin"></i> Loading');
       })
       $( document ).ajaxComplete(function() {
-        $( "#load-more-issues" ).text( "Load more" );
+        $( "#load-more-issues" ).html("Number of issues - "+number_of_issue);
       });
     });
   </script>
