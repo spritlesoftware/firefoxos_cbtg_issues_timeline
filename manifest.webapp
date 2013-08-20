@@ -1,8 +1,8 @@
 {
 "name": "Vinothini",
-"description": "Hi this is my first first firefox os applicaion.",
+"description": "Fetches the latest "street issues" posted at http://www.changebadtogood.com/ as json data and displays it as timeline. ChangeBadToGood helps to build better India. App built by Spritle Software team",
 "launch_path": "/index.html",
-"icons": {"128": "image/firefox-logo.png"},
+"icons": {"64": "icons/firefox-logo.png"},
 "developer": {
     "name": "Spritle Software",
     "url": "http://www.spritle.com/"
