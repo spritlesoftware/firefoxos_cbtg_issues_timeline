@@ -1,4 +1,4 @@
 FirefoxOS App - ChangeBadtoGood - Data Timeline
 ==============================
 
-Happily build by Spritle Software team
+Happily built by Spritle Software team
