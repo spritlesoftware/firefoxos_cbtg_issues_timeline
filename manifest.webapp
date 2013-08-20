@@ -1,8 +1,12 @@
 {
 "name": "Timeline of ChangeBadtoGood.com issues",
 "description": "Fetches the latest street issues posted at http://www.changebadtogood.com/ as json data and displays it as timeline. ChangeBadToGood helps to build better India. App built by Spritle Software team",
+"version": "1.0",
 "launch_path": "/index.html",
-"icons": {"128": "/icons/128-cbtg-logo.png"},
+"icons":  { 
+    "128": "/icons/128.png",
+    "60":  "/icons/60.png"
+},
 "developer": {
     "name": "Vinothini B - Spritle Software",
     "url": "http://www.spritle.com/"
