@@ -4,8 +4,8 @@
 "version": "1.0",
 "launch_path": "/index.html",
 "icons":  { 
-    "128": "/icons/128.png",
-    "60":  "/icons/60.png"
+    "128": "http://www.spritle.com/firefoxos_cbtg_issues_timeline/icons/128.png",
+    "60":  "http://www.spritle.com/firefoxos_cbtg_issues_timeline/icons/60.png"
 },
 "developer": {
     "name": "Vinothini B - Spritle Software",
