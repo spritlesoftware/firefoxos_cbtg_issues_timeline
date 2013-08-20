@@ -1,15 +1,15 @@
 {
-"name": "CBTG Timeline",
+"name": "CBTG Issues",
 "description": "Fetches the latest street issues posted at http://www.changebadtogood.com/ as json data and displays it as timeline. ChangeBadToGood helps to build better India. App built by Spritle Software team",
 "version": "1.0",
-"launch_path": "/index.html",
+"launch_path": "/firefoxos_cbtg_issues_timeline/index.html",
 "icons":  { 
-    "128": "/icons/128.png",
-    "60":  "/icons/60.png"
+    "128": "/firefoxos_cbtg_issues_timeline/icons/128.png",
+    "60":  "/firefoxos_cbtg_issues_timeline/icons/60.png"
 },
 "developer": {
     "name": "Vinothini B - Spritle Software",
-    "url": "http://www.spritle.com/"
+    "url": "http://www.spritle.com"
     },
 "default_locale": "en"
 }
